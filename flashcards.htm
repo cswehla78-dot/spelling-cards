@@ -3,40 +3,52 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Spelling Flashcards</title>
+  <title>Spelling Flashcards (TTS)</title>
   <style>
-    body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; margin: 0; background: #f6f7fb; }
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin: 0; background: #f6f7fb; }
     .wrap { max-width: 820px; margin: 0 auto; padding: 20px; }
-    .card { background: white; border-radius: 18px; padding: 28px; box-shadow: 0 10px 25px rgba(0,0,0,.08); min-height: 220px; display: flex; flex-direction: column; gap: 14px; }
+    .card {
+      background: white; border-radius: 18px; padding: 28px;
+      box-shadow: 0 10px 25px rgba(0,0,0,.08);
+      min-height: 240px; display: flex; flex-direction: column; gap: 14px;
+    }
     h1 { margin: 10px 0 18px; font-size: 20px; color: #222; }
     .word { font-size: 44px; font-weight: 800; letter-spacing: .2px; }
     .meta { color: #555; font-size: 14px; }
     .controls { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
-    button, select, input { border-radius: 12px; border: 1px solid #d8dbe6; background: #fff; padding: 10px 14px; font-size: 14px; cursor: pointer; }
+    button, select, input {
+      border-radius: 12px; border: 1px solid #d8dbe6; background: #fff;
+      padding: 10px 14px; font-size: 14px; cursor: pointer;
+    }
     button.primary { background: #111827; color: white; border-color: #111827; }
     button:disabled { opacity: .5; cursor: not-allowed; }
     .row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
     .spacer { flex: 1; }
-    .small { font-size: 12px; color: #666; }
+    .small { font-size: 12px; color: #666; line-height: 1.35; }
     .input { width: 100%; min-height: 110px; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
     details { background: #eef1fb; border-radius: 14px; padding: 10px 12px; }
     a { color: #1f4ed8; text-decoration: none; }
     a:hover { text-decoration: underline; }
+    .pill { padding: 4px 10px; border-radius: 999px; border: 1px solid #d8dbe6; background: #fff; }
   </style>
 </head>
 <body>
   <div class="wrap">
-    <h1>Spelling Flashcards (with pronunciation links)</h1>
+    <h1>Spelling Flashcards (device text-to-speech)</h1>
 
     <div class="card">
       <div class="row">
         <div class="meta" id="counter">0 / 0</div>
         <div class="spacer"></div>
+
+        <span class="pill small" id="ttsStatus">TTS: checking…</span>
+
         <label class="small">Mode:</label>
         <select id="mode">
           <option value="show">Show word</option>
           <option value="hide">Hide word (quiz)</option>
         </select>
+
         <button id="shuffleBtn">Shuffle</button>
       </div>
 
@@ -48,13 +60,35 @@
         <button class="primary" id="revealBtn">Reveal</button>
         <button id="prevBtn">Back</button>
         <button id="nextBtn" class="primary">Next</button>
+
         <div class="spacer"></div>
-        <button id="pronounceBtn">Pronunciation</button>
-        <a id="pronounceLink" href="#" target="_blank" rel="noreferrer">(open)</a>
+
+        <button id="speakBtn" class="primary">🔊 Speak</button>
+        <button id="stopBtn">Stop</button>
       </div>
 
       <div class="row">
-        <div class="small" id="hint"></div>
+        <label class="small">Voice:</label>
+        <select id="voiceSelect"></select>
+
+        <label class="small">Speed:</label>
+        <select id="rate">
+          <option value="0.8">Slow</option>
+          <option value="1" selected>Normal</option>
+          <option value="1.2">Fast</option>
+        </select>
+
+        <label class="small">Repeat:</label>
+        <select id="repeat">
+          <option value="1" selected>1x</option>
+          <option value="2">2x</option>
+          <option value="3">3x</option>
+        </select>
+      </div>
+
+      <div class="small" id="hint">
+        Tip: On iPhone/iPad, you may need to tap “Speak” once to allow audio. If device TTS isn’t available, use the backup links:
+        <span id="backupLinks"></span>
       </div>
 
       <details>
@@ -66,14 +100,13 @@
           <button id="resetBtn">Reset to default</button>
         </div>
       </details>
-
     </div>
-
   </div>
 
   <script>
-    // Default list: paste your words here (one per line). You can replace anytime in the UI.
-    const DEFAULT_WORDS = `gangly
+    // Default list: Three Bee words (one per line)
+    const DEFAULT_WORDS = `
+gangly
 swaggering
 chimneys
 riveted
@@ -168,7 +201,8 @@ residuals
 boutique
 peroxide
 aristocracy
-apocalypse`.trim();
+apocalypse
+`.trim();
 
     const els = {
       counter: document.getElementById("counter"),
@@ -178,18 +212,23 @@ apocalypse`.trim();
       prevBtn: document.getElementById("prevBtn"),
       nextBtn: document.getElementById("nextBtn"),
       shuffleBtn: document.getElementById("shuffleBtn"),
-      pronounceBtn: document.getElementById("pronounceBtn"),
-      pronounceLink: document.getElementById("pronounceLink"),
-      hint: document.getElementById("hint"),
+      speakBtn: document.getElementById("speakBtn"),
+      stopBtn: document.getElementById("stopBtn"),
+      voiceSelect: document.getElementById("voiceSelect"),
+      rate: document.getElementById("rate"),
+      repeat: document.getElementById("repeat"),
       wordList: document.getElementById("wordList"),
       loadBtn: document.getElementById("loadBtn"),
       resetBtn: document.getElementById("resetBtn"),
-      wordArea: document.getElementById("wordArea"),
+      backupLinks: document.getElementById("backupLinks"),
+      ttsStatus: document.getElementById("ttsStatus"),
     };
 
     let words = [];
     let idx = 0;
     let revealed = true;
+    let voices = [];
+    let selectedVoiceURI = "";
 
     function normalizeWord(w) {
       return w.trim().replace(/\s+/g, " ");
@@ -200,7 +239,6 @@ apocalypse`.trim();
         .map(normalizeWord)
         .filter(Boolean);
 
-      // de-dup while keeping order
       const seen = new Set();
       words = list.filter(w => (seen.has(w) ? false : (seen.add(w), true)));
 
@@ -217,12 +255,11 @@ apocalypse`.trim();
       return "https://www.google.com/search?q=" + encodeURIComponent("define " + word);
     }
 
-    function setPronounceLinks(word) {
+    function updateBackupLinks(word) {
       const wUrl = wiktionaryUrl(word);
-      els.pronounceLink.href = wUrl;
-      els.pronounceLink.textContent = "(open)";
-      els.pronounceBtn.onclick = () => window.open(wUrl, "_blank", "noopener,noreferrer");
-      els.hint.innerHTML = `Pronunciation: <a href="${wUrl}" target="_blank" rel="noreferrer">Wiktionary</a> • <a href="${googleDefineUrl(word)}" target="_blank" rel="noreferrer">Google define</a>`;
+      const gUrl = googleDefineUrl(word);
+      els.backupLinks.innerHTML = ` <a href="${wUrl}" target="_blank" rel="noreferrer">Wiktionary</a> •
+        <a href="${gUrl}" target="_blank" rel="noreferrer">Google define</a>`;
     }
 
     function render() {
@@ -249,7 +286,7 @@ apocalypse`.trim();
         els.word.textContent = revealed ? current : "••••••••";
       }
 
-      setPronounceLinks(current);
+      updateBackupLinks(current);
     }
 
     function next() {
@@ -278,6 +315,92 @@ apocalypse`.trim();
       render();
     }
 
+    // ---- Text-to-Speech ----
+    function ttsAvailable() {
+      return typeof window.speechSynthesis !== "undefined" && typeof SpeechSynthesisUtterance !== "undefined";
+    }
+
+    function stopSpeaking() {
+      if (ttsAvailable()) window.speechSynthesis.cancel();
+    }
+
+    function speakWord(word) {
+      if (!ttsAvailable()) {
+        alert("Text-to-speech isn’t available in this browser. Use the pronunciation links below.");
+        return;
+      }
+
+      stopSpeaking();
+
+      const rate = parseFloat(els.rate.value || "1");
+      const repeat = parseInt(els.repeat.value || "1", 10);
+
+      // iOS sometimes needs a short delay after cancel()
+      setTimeout(() => {
+        for (let i = 0; i < repeat; i++) {
+          const u = new SpeechSynthesisUtterance(word);
+          u.rate = rate;
+
+          const voice = voices.find(v => v.voiceURI === selectedVoiceURI) || null;
+          if (voice) u.voice = voice;
+
+          window.speechSynthesis.speak(u);
+        }
+      }, 50);
+    }
+
+    function populateVoices() {
+      if (!ttsAvailable()) {
+        els.ttsStatus.textContent = "TTS: not supported";
+        els.ttsStatus.style.background = "#fee2e2";
+        return;
+      }
+
+      voices = window.speechSynthesis.getVoices() || [];
+      els.voiceSelect.innerHTML = "";
+
+      // Prefer English voices first
+      const sorted = [...voices].sort((a,b) => {
+        const aEn = (a.lang || "").toLowerCase().startsWith("en");
+        const bEn = (b.lang || "").toLowerCase().startsWith("en");
+        if (aEn !== bEn) return aEn ? -1 : 1;
+        return (a.name || "").localeCompare(b.name || "");
+      });
+
+      sorted.forEach(v => {
+        const opt = document.createElement("option");
+        opt.value = v.voiceURI;
+        opt.textContent = `${v.name} (${v.lang})`;
+        els.voiceSelect.appendChild(opt);
+      });
+
+      // Choose a default voice
+      const defaultVoice =
+        sorted.find(v => /en-us/i.test(v.lang)) ||
+        sorted.find(v => (v.lang || "").toLowerCase().startsWith("en")) ||
+        sorted[0];
+
+      if (defaultVoice) {
+        selectedVoiceURI = defaultVoice.voiceURI;
+        els.voiceSelect.value = selectedVoiceURI;
+        els.ttsStatus.textContent = "TTS: ready";
+        els.ttsStatus.style.background = "#dcfce7";
+      } else {
+        els.ttsStatus.textContent = "TTS: no voices";
+        els.ttsStatus.style.background = "#fee2e2";
+      }
+    }
+
+    // Some browsers load voices asynchronously
+    if (ttsAvailable()) {
+      window.speechSynthesis.onvoiceschanged = populateVoices;
+      // Try now as well
+      populateVoices();
+    } else {
+      populateVoices();
+    }
+
+    // Wire up events
     els.nextBtn.addEventListener("click", next);
     els.prevBtn.addEventListener("click", prev);
     els.shuffleBtn.addEventListener("click", shuffle);
@@ -292,6 +415,18 @@ apocalypse`.trim();
       render();
     });
 
+    els.voiceSelect.addEventListener("change", () => {
+      selectedVoiceURI = els.voiceSelect.value;
+    });
+
+    els.speakBtn.addEventListener("click", () => {
+      if (words.length === 0) return;
+      const current = words[idx];
+      speakWord(current);
+    });
+
+    els.stopBtn.addEventListener("click", stopSpeaking);
+
     els.loadBtn.addEventListener("click", () => {
       loadWordsFromText(els.wordList.value);
     });
@@ -301,11 +436,17 @@ apocalypse`.trim();
       loadWordsFromText(DEFAULT_WORDS);
     });
 
+    // Keyboard shortcuts
     window.addEventListener("keydown", (e) => {
       if (e.key === "ArrowRight") next();
       if (e.key === "ArrowLeft") prev();
       if (e.key.toLowerCase() === "r" && els.mode.value === "hide") { revealed = true; render(); }
       if (e.key.toLowerCase() === "s") shuffle();
+      if (e.key === " " || e.key.toLowerCase() === "p") { // space / p to pronounce
+        e.preventDefault();
+        if (words.length) speakWord(words[idx]);
+      }
+      if (e.key === "Escape") stopSpeaking();
     });
 
     // Init
