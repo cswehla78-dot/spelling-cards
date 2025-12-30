@@ -1,764 +1,316 @@
-<html>
-
+<!doctype html>
+<html lang="en">
 <head>
-<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
-<meta name=Generator content="Microsoft Word 15 (filtered)">
-<style>
-<!--
- /* Font Definitions */
- @font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:Aptos;}
- /* Style Definitions */
- p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin-top:0in;
-	margin-right:0in;
-	margin-bottom:8.0pt;
-	margin-left:0in;
-	line-height:115%;
-	font-size:12.0pt;
-	font-family:"Aptos",sans-serif;}
-.MsoChpDefault
-	{font-size:12.0pt;
-	font-family:"Aptos",sans-serif;}
-.MsoPapDefault
-	{margin-bottom:8.0pt;
-	line-height:115%;}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.0in 1.0in 1.0in;}
-div.WordSection1
-	{page:WordSection1;}
--->
-</style>
-
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Spelling Flashcards</title>
+  <style>
+    body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; margin: 0; background: #f6f7fb; }
+    .wrap { max-width: 820px; margin: 0 auto; padding: 20px; }
+    .card { background: white; border-radius: 18px; padding: 28px; box-shadow: 0 10px 25px rgba(0,0,0,.08); min-height: 220px; display: flex; flex-direction: column; gap: 14px; }
+    h1 { margin: 10px 0 18px; font-size: 20px; color: #222; }
+    .word { font-size: 44px; font-weight: 800; letter-spacing: .2px; }
+    .meta { color: #555; font-size: 14px; }
+    .controls { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+    button, select, input { border-radius: 12px; border: 1px solid #d8dbe6; background: #fff; padding: 10px 14px; font-size: 14px; cursor: pointer; }
+    button.primary { background: #111827; color: white; border-color: #111827; }
+    button:disabled { opacity: .5; cursor: not-allowed; }
+    .row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+    .spacer { flex: 1; }
+    .small { font-size: 12px; color: #666; }
+    .input { width: 100%; min-height: 110px; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    details { background: #eef1fb; border-radius: 14px; padding: 10px 12px; }
+    a { color: #1f4ed8; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+  </style>
 </head>
-
-<body lang=EN-US style='word-wrap:break-word'>
-
-<div class=WordSection1>
-
-<p class=MsoNormal>&lt;!doctype html&gt;</p>
-
-<p class=MsoNormal>&lt;html lang=&quot;en&quot;&gt;</p>
-
-<p class=MsoNormal>&lt;head&gt;</p>
-
-<p class=MsoNormal>  &lt;meta charset=&quot;utf-8&quot; /&gt;</p>
-
-<p class=MsoNormal>  &lt;meta name=&quot;viewport&quot;
-content=&quot;width=device-width,initial-scale=1&quot; /&gt;</p>
-
-<p class=MsoNormal>  &lt;title&gt;Spelling Flashcards&lt;/title&gt;</p>
-
-<p class=MsoNormal>  &lt;style&gt;</p>
-
-<p class=MsoNormal>    body { font-family: system-ui, -apple-system, Segoe UI,
-Roboto, Arial, sans-serif; margin: 0; background: #f6f7fb; }</p>
-
-<p class=MsoNormal>    .wrap { max-width: 820px; margin: 0 auto; padding: 20px;
-}</p>
-
-<p class=MsoNormal>    .card {</p>
-
-<p class=MsoNormal>      background: white; border-radius: 18px; padding: 28px;</p>
-
-<p class=MsoNormal>      box-shadow: 0 10px 25px rgba(0,0,0,.08);</p>
-
-<p class=MsoNormal>      min-height: 220px; display: flex; flex-direction:
-column; gap: 14px;</p>
-
-<p class=MsoNormal>    }</p>
-
-<p class=MsoNormal>    h1 { margin: 10px 0 18px; font-size: 20px; color: #222;
-}</p>
-
-<p class=MsoNormal>    .word { font-size: 44px; font-weight: 800;
-letter-spacing: .2px; }</p>
-
-<p class=MsoNormal>    .meta { color: #555; font-size: 14px; }</p>
-
-<p class=MsoNormal>    .controls { display: flex; flex-wrap: wrap; gap: 10px;
-margin-top: 14px; }</p>
-
-<p class=MsoNormal>    button, select, input {</p>
-
-<p class=MsoNormal>      border-radius: 12px; border: 1px solid #d8dbe6;
-background: #fff;</p>
-
-<p class=MsoNormal>      padding: 10px 14px; font-size: 14px; cursor: pointer;</p>
-
-<p class=MsoNormal>    }</p>
-
-<p class=MsoNormal>    button.primary { background: #111827; color: white;
-border-color: #111827; }</p>
-
-<p class=MsoNormal>    button:disabled { opacity: .5; cursor: not-allowed; }</p>
-
-<p class=MsoNormal>    .row { display: flex; flex-wrap: wrap; gap: 10px;
-align-items: center; }</p>
-
-<p class=MsoNormal>    .spacer { flex: 1; }</p>
-
-<p class=MsoNormal>    .small { font-size: 12px; color: #666; }</p>
-
-<p class=MsoNormal>    .input { width: 100%; min-height: 110px; font-family:
-ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }</p>
-
-<p class=MsoNormal>    details { background: #eef1fb; border-radius: 14px;
-padding: 10px 12px; }</p>
-
-<p class=MsoNormal>    a { color: #1f4ed8; text-decoration: none; }</p>
-
-<p class=MsoNormal>    a:hover { text-decoration: underline; }</p>
-
-<p class=MsoNormal>  &lt;/style&gt;</p>
-
-<p class=MsoNormal>&lt;/head&gt;</p>
-
-<p class=MsoNormal>&lt;body&gt;</p>
-
-<p class=MsoNormal>  &lt;div class=&quot;wrap&quot;&gt;</p>
-
-<p class=MsoNormal>    &lt;h1&gt;Spelling Flashcards (with pronunciation
-links)&lt;/h1&gt;</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>    &lt;div class=&quot;card&quot;&gt;</p>
-
-<p class=MsoNormal>      &lt;div class=&quot;row&quot;&gt;</p>
-
-<p class=MsoNormal>        &lt;div class=&quot;meta&quot;
-id=&quot;counter&quot;&gt;0 / 0&lt;/div&gt;</p>
-
-<p class=MsoNormal>        &lt;div class=&quot;spacer&quot;&gt;&lt;/div&gt;</p>
-
-<p class=MsoNormal>        &lt;label
-class=&quot;small&quot;&gt;Mode:&lt;/label&gt;</p>
-
-<p class=MsoNormal>        &lt;select id=&quot;mode&quot;&gt;</p>
-
-<p class=MsoNormal>          &lt;option value=&quot;show&quot;&gt;Show
-word&lt;/option&gt;</p>
-
-<p class=MsoNormal>          &lt;option value=&quot;hide&quot;&gt;Hide word
-(quiz)&lt;/option&gt;</p>
-
-<p class=MsoNormal>        &lt;/select&gt;</p>
-
-<p class=MsoNormal>        &lt;button
-id=&quot;shuffleBtn&quot;&gt;Shuffle&lt;/button&gt;</p>
-
-<p class=MsoNormal>      &lt;/div&gt;</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>      &lt;div id=&quot;wordArea&quot;&gt;</p>
-
-<p class=MsoNormal>        &lt;div class=&quot;word&quot;
-id=&quot;word&quot;&gt;—&lt;/div&gt;</p>
-
-<p class=MsoNormal>      &lt;/div&gt;</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>      &lt;div class=&quot;row&quot;&gt;</p>
-
-<p class=MsoNormal>        &lt;button class=&quot;primary&quot;
-id=&quot;revealBtn&quot;&gt;Reveal&lt;/button&gt;</p>
-
-<p class=MsoNormal>        &lt;button
-id=&quot;prevBtn&quot;&gt;Back&lt;/button&gt;</p>
-
-<p class=MsoNormal>        &lt;button id=&quot;nextBtn&quot;
-class=&quot;primary&quot;&gt;Next&lt;/button&gt;</p>
-
-<p class=MsoNormal>        &lt;div class=&quot;spacer&quot;&gt;&lt;/div&gt;</p>
-
-<p class=MsoNormal>        &lt;button
-id=&quot;pronounceBtn&quot;&gt;Pronunciation&lt;/button&gt;</p>
-
-<p class=MsoNormal>        &lt;a id=&quot;pronounceLink&quot;
-href=&quot;#&quot; target=&quot;_blank&quot;
-rel=&quot;noreferrer&quot;&gt;(open)&lt;/a&gt;</p>
-
-<p class=MsoNormal>      &lt;/div&gt;</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>      &lt;div class=&quot;row&quot;&gt;</p>
-
-<p class=MsoNormal>        &lt;div class=&quot;small&quot;
-id=&quot;hint&quot;&gt;&lt;/div&gt;</p>
-
-<p class=MsoNormal>      &lt;/div&gt;</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>      &lt;details&gt;</p>
-
-<p class=MsoNormal>        &lt;summary&gt;&lt;b&gt;Edit word list&lt;/b&gt;
-(paste one word per line)&lt;/summary&gt;</p>
-
-<p class=MsoNormal>        &lt;p class=&quot;small&quot;&gt;Tip: you can paste
-your Three Bee list, or combine all levels.&lt;/p&gt;</p>
-
-<p class=MsoNormal>        &lt;textarea id=&quot;wordList&quot;
-class=&quot;input&quot;&gt;&lt;/textarea&gt;</p>
-
-<p class=MsoNormal>        &lt;div class=&quot;controls&quot;&gt;</p>
-
-<p class=MsoNormal>          &lt;button id=&quot;loadBtn&quot;
-class=&quot;primary&quot;&gt;Load List&lt;/button&gt;</p>
-
-<p class=MsoNormal>          &lt;button id=&quot;resetBtn&quot;&gt;Reset to
-default&lt;/button&gt;</p>
-
-<p class=MsoNormal>        &lt;/div&gt;</p>
-
-<p class=MsoNormal>      &lt;/details&gt;</p>
-
-<p class=MsoNormal>    &lt;/div&gt;</p>
-
-<p class=MsoNormal>  &lt;/div&gt;</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>  &lt;script&gt;</p>
-
-<p class=MsoNormal>    // Default list: paste your words here (one per line).
-You can replace anytime in the UI.</p>
-
-<p class=MsoNormal>    const DEFAULT_WORDS = `</p>
-
-<p class=MsoNormal>gangly</p>
-
-<p class=MsoNormal>swaggering</p>
-
-<p class=MsoNormal>chimneys</p>
-
-<p class=MsoNormal>riveted</p>
-
-<p class=MsoNormal>plaid</p>
-
-<p class=MsoNormal>dirge</p>
-
-<p class=MsoNormal>zeal</p>
-
-<p class=MsoNormal>whittled</p>
-
-<p class=MsoNormal>depots</p>
-
-<p class=MsoNormal>fiberglass</p>
-
-<p class=MsoNormal>salvaged</p>
-
-<p class=MsoNormal>fissures</p>
-
-<p class=MsoNormal>enthusiastic</p>
-
-<p class=MsoNormal>discipline</p>
-
-<p class=MsoNormal>unfamiliar</p>
-
-<p class=MsoNormal>scurrying</p>
-
-<p class=MsoNormal>dignitaries</p>
-
-<p class=MsoNormal>pizzeria</p>
-
-<p class=MsoNormal>dismissal</p>
-
-<p class=MsoNormal>skittish</p>
-
-<p class=MsoNormal>careened</p>
-
-<p class=MsoNormal>nomination</p>
-
-<p class=MsoNormal>opportunist</p>
-
-<p class=MsoNormal>dictatorship</p>
-
-<p class=MsoNormal>comrades</p>
-
-<p class=MsoNormal>sporadic</p>
-
-<p class=MsoNormal>promenade</p>
-
-<p class=MsoNormal>repugnant</p>
-
-<p class=MsoNormal>invincible</p>
-
-<p class=MsoNormal>renowned</p>
-
-<p class=MsoNormal>parachute</p>
-
-<p class=MsoNormal>laborious</p>
-
-<p class=MsoNormal>appointment</p>
-
-<p class=MsoNormal>foreseeable</p>
-
-<p class=MsoNormal>ratify</p>
-
-<p class=MsoNormal>scalpel</p>
-
-<p class=MsoNormal>reclusive</p>
-
-<p class=MsoNormal>compassionate</p>
-
-<p class=MsoNormal>bulletin</p>
-
-<p class=MsoNormal>alfalfa</p>
-
-<p class=MsoNormal>officially</p>
-
-<p class=MsoNormal>crematorium</p>
-
-<p class=MsoNormal>bayonet</p>
-
-<p class=MsoNormal>amicable</p>
-
-<p class=MsoNormal>exuberant</p>
-
-<p class=MsoNormal>beautician</p>
-
-<p class=MsoNormal>equations</p>
-
-<p class=MsoNormal>assignment</p>
-
-<p class=MsoNormal>ultimatum</p>
-
-<p class=MsoNormal>whinnying</p>
-
-<p class=MsoNormal>squalor</p>
-
-<p class=MsoNormal>memoirs</p>
-
-<p class=MsoNormal>cylinders</p>
-
-<p class=MsoNormal>ominous</p>
-
-<p class=MsoNormal>muffler</p>
-
-<p class=MsoNormal>syndrome</p>
-
-<p class=MsoNormal>premises</p>
-
-<p class=MsoNormal>safari</p>
-
-<p class=MsoNormal>lasagna</p>
-
-<p class=MsoNormal>substantially</p>
-
-<p class=MsoNormal>mercantile</p>
-
-<p class=MsoNormal>formidable</p>
-
-<p class=MsoNormal>propaganda</p>
-
-<p class=MsoNormal>marquee</p>
-
-<p class=MsoNormal>proficient</p>
-
-<p class=MsoNormal>compunction</p>
-
-<p class=MsoNormal>emphatically</p>
-
-<p class=MsoNormal>hyperventilated</p>
-
-<p class=MsoNormal>ostracism</p>
-
-<p class=MsoNormal>onslaught</p>
-
-<p class=MsoNormal>ruefully</p>
-
-<p class=MsoNormal>misanthrope</p>
-
-<p class=MsoNormal>prototype</p>
-
-<p class=MsoNormal>cravenly</p>
-
-<p class=MsoNormal>mulberry</p>
-
-<p class=MsoNormal>hypocritical</p>
-
-<p class=MsoNormal>chlorine</p>
-
-<p class=MsoNormal>traumatic</p>
-
-<p class=MsoNormal>receipts</p>
-
-<p class=MsoNormal>solemnly</p>
-
-<p class=MsoNormal>begrudge</p>
-
-<p class=MsoNormal>contentious</p>
-
-<p class=MsoNormal>precocious</p>
-
-<p class=MsoNormal>ensemble</p>
-
-<p class=MsoNormal>cadre</p>
-
-<p class=MsoNormal>lye</p>
-
-<p class=MsoNormal>belfry</p>
-
-<p class=MsoNormal>lacrosse</p>
-
-<p class=MsoNormal>sluice</p>
-
-<p class=MsoNormal>cajolery</p>
-
-<p class=MsoNormal>vigilance</p>
-
-<p class=MsoNormal>residuals</p>
-
-<p class=MsoNormal>boutique</p>
-
-<p class=MsoNormal>peroxide</p>
-
-<p class=MsoNormal>aristocracy</p>
-
-<p class=MsoNormal>apocalypse</p>
-
-<p class=MsoNormal>`.trim();</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>    const els = {</p>
-
-<p class=MsoNormal>      counter: document.getElementById(&quot;counter&quot;),</p>
-
-<p class=MsoNormal>      word: document.getElementById(&quot;word&quot;),</p>
-
-<p class=MsoNormal>      mode: document.getElementById(&quot;mode&quot;),</p>
-
-<p class=MsoNormal>      revealBtn:
-document.getElementById(&quot;revealBtn&quot;),</p>
-
-<p class=MsoNormal>      prevBtn: document.getElementById(&quot;prevBtn&quot;),</p>
-
-<p class=MsoNormal>      nextBtn: document.getElementById(&quot;nextBtn&quot;),</p>
-
-<p class=MsoNormal>      shuffleBtn:
-document.getElementById(&quot;shuffleBtn&quot;),</p>
-
-<p class=MsoNormal>      pronounceBtn:
-document.getElementById(&quot;pronounceBtn&quot;),</p>
-
-<p class=MsoNormal>      pronounceLink:
-document.getElementById(&quot;pronounceLink&quot;),</p>
-
-<p class=MsoNormal>      hint: document.getElementById(&quot;hint&quot;),</p>
-
-<p class=MsoNormal>      wordList:
-document.getElementById(&quot;wordList&quot;),</p>
-
-<p class=MsoNormal>      loadBtn: document.getElementById(&quot;loadBtn&quot;),</p>
-
-<p class=MsoNormal>      resetBtn:
-document.getElementById(&quot;resetBtn&quot;),</p>
-
-<p class=MsoNormal>      wordArea:
-document.getElementById(&quot;wordArea&quot;),</p>
-
-<p class=MsoNormal>    };</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>    let words = [];</p>
-
-<p class=MsoNormal>    let idx = 0;</p>
-
-<p class=MsoNormal>    let revealed = true;</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>    function normalizeWord(w) {</p>
-
-<p class=MsoNormal>      return w.trim().replace(/\s+/g, &quot; &quot;);</p>
-
-<p class=MsoNormal>    }</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>    function loadWordsFromText(text) {</p>
-
-<p class=MsoNormal>      const list = text.split(&quot;\n&quot;)</p>
-
-<p class=MsoNormal>        .map(normalizeWord)</p>
-
-<p class=MsoNormal>        .filter(Boolean);</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>      // de-dup while keeping order</p>
-
-<p class=MsoNormal>      const seen = new Set();</p>
-
-<p class=MsoNormal>      words = list.filter(w =&gt; (seen.has(w) ? false :
-(seen.add(w), true)));</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>      idx = 0;</p>
-
-<p class=MsoNormal>      revealed = true;</p>
-
-<p class=MsoNormal>      render();</p>
-
-<p class=MsoNormal>    }</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>    function wiktionaryUrl(word) {</p>
-
-<p class=MsoNormal>      // Wiktionary pages usually match the word; keep
-apostrophes/diacritics.</p>
-
-<p class=MsoNormal>      return &quot;https://en.wiktionary.org/wiki/&quot; +
-encodeURIComponent(word);</p>
-
-<p class=MsoNormal>    }</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>    function googleDefineUrl(word) {</p>
-
-<p class=MsoNormal>      return &quot;https://www.google.com/search?q=&quot; +
-encodeURIComponent(&quot;define &quot; + word);</p>
-
-<p class=MsoNormal>    }</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>    function setPronounceLinks(word) {</p>
-
-<p class=MsoNormal>      // Primary: Wiktionary. Fallback link always provided.</p>
-
-<p class=MsoNormal>      const wUrl = wiktionaryUrl(word);</p>
-
-<p class=MsoNormal>      els.pronounceLink.href = wUrl;</p>
-
-<p class=MsoNormal>      els.pronounceLink.textContent = &quot;(open)&quot;;</p>
-
-<p class=MsoNormal>      els.pronounceBtn.onclick = () =&gt; window.open(wUrl,
-&quot;_blank&quot;, &quot;noopener,noreferrer&quot;);</p>
-
-<p class=MsoNormal>      els.hint.textContent = &quot;Pronunciation opens
-Wiktionary (often has audio). If missing, use the Google define
-fallback.&quot;;</p>
-
-<p class=MsoNormal>      els.hint.innerHTML = `Pronunciation: &lt;a
-href=&quot;${wUrl}&quot; target=&quot;_blank&quot;
-rel=&quot;noreferrer&quot;&gt;Wiktionary&lt;/a&gt; •</p>
-
-<p class=MsoNormal>        &lt;a href=&quot;${googleDefineUrl(word)}&quot;
-target=&quot;_blank&quot; rel=&quot;noreferrer&quot;&gt;Google
-define&lt;/a&gt;`;</p>
-
-<p class=MsoNormal>    }</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>    function render() {</p>
-
-<p class=MsoNormal>      if (words.length === 0) {</p>
-
-<p class=MsoNormal>        els.word.textContent = &quot;—&quot;;</p>
-
-<p class=MsoNormal>        els.counter.textContent = &quot;0 / 0&quot;;</p>
-
-<p class=MsoNormal>        els.prevBtn.disabled = true;</p>
-
-<p class=MsoNormal>        els.nextBtn.disabled = true;</p>
-
-<p class=MsoNormal>        els.revealBtn.disabled = true;</p>
-
-<p class=MsoNormal>        return;</p>
-
-<p class=MsoNormal>      }</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>      const mode = els.mode.value;</p>
-
-<p class=MsoNormal>      const current = words[idx];</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>      els.counter.textContent = `${idx + 1} /
-${words.length}`;</p>
-
-<p class=MsoNormal>      els.prevBtn.disabled = idx === 0;</p>
-
-<p class=MsoNormal>      els.nextBtn.disabled = idx === words.length - 1;</p>
-
-<p class=MsoNormal>      els.revealBtn.disabled = (mode === &quot;show&quot;);</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>      if (mode === &quot;show&quot;) {</p>
-
-<p class=MsoNormal>        els.word.textContent = current;</p>
-
-<p class=MsoNormal>      } else {</p>
-
-<p class=MsoNormal>        els.word.textContent = revealed ? current :
-&quot;••••••••&quot;;</p>
-
-<p class=MsoNormal>      }</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>      setPronounceLinks(current);</p>
-
-<p class=MsoNormal>    }</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>    function next() {</p>
-
-<p class=MsoNormal>      if (idx &lt; words.length - 1) {</p>
-
-<p class=MsoNormal>        idx++;</p>
-
-<p class=MsoNormal>        revealed = (els.mode.value === &quot;show&quot;);</p>
-
-<p class=MsoNormal>        render();</p>
-
-<p class=MsoNormal>      }</p>
-
-<p class=MsoNormal>    }</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>    function prev() {</p>
-
-<p class=MsoNormal>      if (idx &gt; 0) {</p>
-
-<p class=MsoNormal>        idx--;</p>
-
-<p class=MsoNormal>        revealed = (els.mode.value === &quot;show&quot;);</p>
-
-<p class=MsoNormal>        render();</p>
-
-<p class=MsoNormal>      }</p>
-
-<p class=MsoNormal>    }</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>    function shuffle() {</p>
-
-<p class=MsoNormal>      // Fisher-Yates shuffle</p>
-
-<p class=MsoNormal>      for (let i = words.length - 1; i &gt; 0; i--) {</p>
-
-<p class=MsoNormal>        const j = Math.floor(Math.random() * (i + 1));</p>
-
-<p class=MsoNormal>        [words[i], words[j]] = [words[j], words[i]];</p>
-
-<p class=MsoNormal>      }</p>
-
-<p class=MsoNormal>      idx = 0;</p>
-
-<p class=MsoNormal>      revealed = (els.mode.value === &quot;show&quot;);</p>
-
-<p class=MsoNormal>      render();</p>
-
-<p class=MsoNormal>    }</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>    // Wire up events</p>
-
-<p class=MsoNormal>    els.nextBtn.addEventListener(&quot;click&quot;, next);</p>
-
-<p class=MsoNormal>    els.prevBtn.addEventListener(&quot;click&quot;, prev);</p>
-
-<p class=MsoNormal>    els.shuffleBtn.addEventListener(&quot;click&quot;,
-shuffle);</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>    els.revealBtn.addEventListener(&quot;click&quot;, ()
-=&gt; {</p>
-
-<p class=MsoNormal>      revealed = true;</p>
-
-<p class=MsoNormal>      render();</p>
-
-<p class=MsoNormal>    });</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>    els.mode.addEventListener(&quot;change&quot;, () =&gt; {</p>
-
-<p class=MsoNormal>      revealed = (els.mode.value === &quot;show&quot;);</p>
-
-<p class=MsoNormal>      render();</p>
-
-<p class=MsoNormal>    });</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>    els.loadBtn.addEventListener(&quot;click&quot;, () =&gt;
-{</p>
-
-<p class=MsoNormal>      loadWordsFromText(els.wordList.value);</p>
-
-<p class=MsoNormal>    });</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>    els.resetBtn.addEventListener(&quot;click&quot;, ()
-=&gt; {</p>
-
-<p class=MsoNormal>      els.wordList.value = DEFAULT_WORDS;</p>
-
-<p class=MsoNormal>      loadWordsFromText(DEFAULT_WORDS);</p>
-
-<p class=MsoNormal>    });</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>    // Keyboard shortcuts</p>
-
-<p class=MsoNormal>    window.addEventListener(&quot;keydown&quot;, (e) =&gt; {</p>
-
-<p class=MsoNormal>      if (e.key === &quot;ArrowRight&quot;) next();</p>
-
-<p class=MsoNormal>      if (e.key === &quot;ArrowLeft&quot;) prev();</p>
-
-<p class=MsoNormal>      if (e.key.toLowerCase() === &quot;r&quot; &amp;&amp;
-els.mode.value === &quot;hide&quot;) { revealed = true; render(); }</p>
-
-<p class=MsoNormal>      if (e.key.toLowerCase() === &quot;s&quot;) shuffle();</p>
-
-<p class=MsoNormal>    });</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>    // Init</p>
-
-<p class=MsoNormal>    els.wordList.value = DEFAULT_WORDS;</p>
-
-<p class=MsoNormal>    loadWordsFromText(DEFAULT_WORDS);</p>
-
-<p class=MsoNormal>  &lt;/script&gt;</p>
-
-<p class=MsoNormal>&lt;/body&gt;</p>
-
-<p class=MsoNormal>&lt;/html&gt;</p>
-
-</div>
-
+<body>
+  <div class="wrap">
+    <h1>Spelling Flashcards (with pronunciation links)</h1>
+
+    <div class="card">
+      <div class="row">
+        <div class="meta" id="counter">0 / 0</div>
+        <div class="spacer"></div>
+        <label class="small">Mode:</label>
+        <select id="mode">
+          <option value="show">Show word</option>
+          <option value="hide">Hide word (quiz)</option>
+        </select>
+        <button id="shuffleBtn">Shuffle</button>
+      </div>
+
+      <div id="wordArea">
+        <div class="word" id="word">—</div>
+      </div>
+
+      <div class="row">
+        <button class="primary" id="revealBtn">Reveal</button>
+        <button id="prevBtn">Back</button>
+        <button id="nextBtn" class="primary">Next</button>
+        <div class="spacer"></div>
+        <button id="pronounceBtn">Pronunciation</button>
+        <a id="pronounceLink" href="#" target="_blank" rel="noreferrer">(open)</a>
+      </div>
+
+      <div class="row">
+        <div class="small" id="hint"></div>
+      </div>
+
+      <details>
+        <summary><b>Edit word list</b> (paste one word per line)</summary>
+        <p class="small">Tip: you can paste your Three Bee list, or combine all levels.</p>
+        <textarea id="wordList" class="input"></textarea>
+        <div class="controls">
+          <button id="loadBtn" class="primary">Load List</button>
+          <button id="resetBtn">Reset to default</button>
+        </div>
+      </details>
+
+    </div>
+
+  </div>
+
+  <script>
+    // Default list: paste your words here (one per line). You can replace anytime in the UI.
+    const DEFAULT_WORDS = `gangly
+swaggering
+chimneys
+riveted
+plaid
+dirge
+zeal
+whittled
+depots
+fiberglass
+salvaged
+fissures
+enthusiastic
+discipline
+unfamiliar
+scurrying
+dignitaries
+pizzeria
+dismissal
+skittish
+careened
+nomination
+opportunist
+dictatorship
+comrades
+sporadic
+promenade
+repugnant
+invincible
+renowned
+parachute
+laborious
+appointment
+foreseeable
+ratify
+scalpel
+reclusive
+compassionate
+bulletin
+alfalfa
+officially
+crematorium
+bayonet
+amicable
+exuberant
+beautician
+equations
+assignment
+ultimatum
+whinnying
+squalor
+memoirs
+cylinders
+ominous
+muffler
+syndrome
+premises
+safari
+lasagna
+substantially
+mercantile
+formidable
+propaganda
+marquee
+proficient
+compunction
+emphatically
+hyperventilated
+ostracism
+onslaught
+ruefully
+misanthrope
+prototype
+cravenly
+mulberry
+hypocritical
+chlorine
+traumatic
+receipts
+solemnly
+begrudge
+contentious
+precocious
+ensemble
+cadre
+lye
+belfry
+lacrosse
+sluice
+cajolery
+vigilance
+residuals
+boutique
+peroxide
+aristocracy
+apocalypse`.trim();
+
+    const els = {
+      counter: document.getElementById("counter"),
+      word: document.getElementById("word"),
+      mode: document.getElementById("mode"),
+      revealBtn: document.getElementById("revealBtn"),
+      prevBtn: document.getElementById("prevBtn"),
+      nextBtn: document.getElementById("nextBtn"),
+      shuffleBtn: document.getElementById("shuffleBtn"),
+      pronounceBtn: document.getElementById("pronounceBtn"),
+      pronounceLink: document.getElementById("pronounceLink"),
+      hint: document.getElementById("hint"),
+      wordList: document.getElementById("wordList"),
+      loadBtn: document.getElementById("loadBtn"),
+      resetBtn: document.getElementById("resetBtn"),
+      wordArea: document.getElementById("wordArea"),
+    };
+
+    let words = [];
+    let idx = 0;
+    let revealed = true;
+
+    function normalizeWord(w) {
+      return w.trim().replace(/\s+/g, " ");
+    }
+
+    function loadWordsFromText(text) {
+      const list = text.split("\n")
+        .map(normalizeWord)
+        .filter(Boolean);
+
+      // de-dup while keeping order
+      const seen = new Set();
+      words = list.filter(w => (seen.has(w) ? false : (seen.add(w), true)));
+
+      idx = 0;
+      revealed = true;
+      render();
+    }
+
+    function wiktionaryUrl(word) {
+      return "https://en.wiktionary.org/wiki/" + encodeURIComponent(word);
+    }
+
+    function googleDefineUrl(word) {
+      return "https://www.google.com/search?q=" + encodeURIComponent("define " + word);
+    }
+
+    function setPronounceLinks(word) {
+      const wUrl = wiktionaryUrl(word);
+      els.pronounceLink.href = wUrl;
+      els.pronounceLink.textContent = "(open)";
+      els.pronounceBtn.onclick = () => window.open(wUrl, "_blank", "noopener,noreferrer");
+      els.hint.innerHTML = `Pronunciation: <a href="${wUrl}" target="_blank" rel="noreferrer">Wiktionary</a> • <a href="${googleDefineUrl(word)}" target="_blank" rel="noreferrer">Google define</a>`;
+    }
+
+    function render() {
+      if (words.length === 0) {
+        els.word.textContent = "—";
+        els.counter.textContent = "0 / 0";
+        els.prevBtn.disabled = true;
+        els.nextBtn.disabled = true;
+        els.revealBtn.disabled = true;
+        return;
+      }
+
+      const mode = els.mode.value;
+      const current = words[idx];
+
+      els.counter.textContent = `${idx + 1} / ${words.length}`;
+      els.prevBtn.disabled = idx === 0;
+      els.nextBtn.disabled = idx === words.length - 1;
+      els.revealBtn.disabled = (mode === "show");
+
+      if (mode === "show") {
+        els.word.textContent = current;
+      } else {
+        els.word.textContent = revealed ? current : "••••••••";
+      }
+
+      setPronounceLinks(current);
+    }
+
+    function next() {
+      if (idx < words.length - 1) {
+        idx++;
+        revealed = (els.mode.value === "show");
+        render();
+      }
+    }
+
+    function prev() {
+      if (idx > 0) {
+        idx--;
+        revealed = (els.mode.value === "show");
+        render();
+      }
+    }
+
+    function shuffle() {
+      for (let i = words.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [words[i], words[j]] = [words[j], words[i]];
+      }
+      idx = 0;
+      revealed = (els.mode.value === "show");
+      render();
+    }
+
+    els.nextBtn.addEventListener("click", next);
+    els.prevBtn.addEventListener("click", prev);
+    els.shuffleBtn.addEventListener("click", shuffle);
+
+    els.revealBtn.addEventListener("click", () => {
+      revealed = true;
+      render();
+    });
+
+    els.mode.addEventListener("change", () => {
+      revealed = (els.mode.value === "show");
+      render();
+    });
+
+    els.loadBtn.addEventListener("click", () => {
+      loadWordsFromText(els.wordList.value);
+    });
+
+    els.resetBtn.addEventListener("click", () => {
+      els.wordList.value = DEFAULT_WORDS;
+      loadWordsFromText(DEFAULT_WORDS);
+    });
+
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight") next();
+      if (e.key === "ArrowLeft") prev();
+      if (e.key.toLowerCase() === "r" && els.mode.value === "hide") { revealed = true; render(); }
+      if (e.key.toLowerCase() === "s") shuffle();
+    });
+
+    // Init
+    els.wordList.value = DEFAULT_WORDS;
+    loadWordsFromText(DEFAULT_WORDS);
+  </script>
 </body>
-
 </html>
